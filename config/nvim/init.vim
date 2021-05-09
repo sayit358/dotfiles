@@ -9,22 +9,18 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-    " Better Syntax Support
-    Plug 'sheerun/vim-polyglot'
-    " Auto pairs for '(' '[' '{'
-    Plug 'jiangmiao/auto-pairs'
+Plug 'sheerun/vim-polyglot'
+Plug 'jiangmiao/auto-pairs'
 Plug 'ptzz/lf.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'joshdick/onedark.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jbgutierrez/vim-better-comments'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'preservim/nerdtree' |
+Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'puremourning/vimspector'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdcommenter'
@@ -35,6 +31,8 @@ Plug 'honza/vim-snippets'
 Plug 'sudar/vim-arduino-snippets'
 Plug 'unblevable/quick-scope'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'metakirby5/codi.vim'
+Plug 'szw/vim-maximizer'
 call plug#end()
 
 " set theme
@@ -55,3 +53,9 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+
+" Neovide
+set guifont=FiraCode\ Nerd\ Font:h15
+let g:neovide_transparency=0.95
+
+

@@ -2,15 +2,13 @@
     "diagnostic.virtualText": true,
     "diagnostic.virtualTextCurrentLineOnly": false,
 
-     
-        "languageserver": {
-            "godot": {
-                "host": "127.0.0.1",
-                "filetypes": ["gdscript"],
-                "port": 6008
-            }
-        }
-    
-}
+    "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "html", "javascript", "json"],
 
-   
+    "languageserver": {
+        "godot": {
+            "host": "127.0.0.1",
+            "filetypes": ["gdscript"],
+            "port": 6008
+        }
+    }
+}

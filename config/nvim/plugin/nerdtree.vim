@@ -10,3 +10,5 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 
 " Enable mouse mode
 let g:NERDTreeMouseMode=3
+
+let g:NERDTreeGitStatusUseNerdFonts = 1
