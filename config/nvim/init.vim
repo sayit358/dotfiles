@@ -11,7 +11,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
-Plug 'ptzz/lf.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'joshdick/onedark.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -33,6 +32,7 @@ Plug 'unblevable/quick-scope'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'metakirby5/codi.vim'
 Plug 'szw/vim-maximizer'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 
 " set theme
