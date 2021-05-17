@@ -23,6 +23,7 @@ Plug 'puremourning/vimspector'
 Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'pope/vim-commentary'
+Plug 'tpope/vim-commentary'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'honza/vim-snippets'
