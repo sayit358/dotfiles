@@ -1,10 +1,13 @@
 # Dotfiles
 
-My configuration files for Neovim (nightly), VSCodium and the LF file manager.
 
-Also includes my KDE Plasma desktop layout.  
-You can import this using the [Plasma Customization Saver](https://store.kde.org/p/1298955/).
+My configuration files for Neovim as well as other things. This also includes a script to install the packages I use.
+
+![Desktop](./dotfiles.png)
+
 
 ## Requirements
 
-Both LF and Neovim require a [Nerd Font](https://www.nerdfonts.com/) in order to look as intended.
+* [Paru](https://github.com/Morganamilo/paru)
+* JetBrains Mono Nerd Font Mono (for the extra Neovim bling :ok_hand:)
+* [Lain](https://github.com/lcpz/lain) and st (for AwesomeWM)

@@ -1,0 +1,8 @@
+fish
+neovim
+redshift
+ripgrep
+mpv
+mpd
+ncmpcpp
+youtube-dl
