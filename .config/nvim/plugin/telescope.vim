@@ -9,7 +9,6 @@ require("telescope").setup {
   pickers = {
     buffers = {
       show_all_buffers = true,
-      sort_lastused = true,
       theme = "dropdown",
       previewer = false,
       mappings = {
@@ -20,9 +19,15 @@ require("telescope").setup {
     },
    find_files = {
      theme = "dropdown",
-     previewer = false
+     previewer = false,
+     hidden = true
    }
   }
  }
 require('telescope').load_extension('dap')
 EOF
+
+nnoremap <Leader>df :call <SID>dotfiles()<CR>
+function! s:dotfiles()
+  lua require("telescope.builtin").find_files({prompt_title = "Dotfiles", cwd = "~/.config/nvim",})
+endfunction
