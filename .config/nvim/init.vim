@@ -62,7 +62,6 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'ray-x/lsp_signature.nvim'
-Plug 'simrat39/symbols-outline.nvim'
 
 call plug#end()
 
