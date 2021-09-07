@@ -37,14 +37,9 @@ Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-repeat'
 Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-unimpaired'
-Plug 'shadmansaleh/lualine.nvim'
 Plug 'olimorris/onedark.nvim'
 Plug 'rktjmp/lush.nvim'
 Plug 'tpope/vim-obsession'
-Plug 'romainl/vim-devdocs'
-Plug 'tpope/vim-abolish'
-Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'simeji/winresizer'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -55,8 +50,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'nvim-telescope/telescope-dap.nvim'
+Plug 'theHamsta/nvim-dap-virtual-text'
 
-" Lsp config
+" Lsp stuff
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'rafamadriz/friendly-snippets'
@@ -74,3 +70,13 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>ws :%s/\s\+$//e<CR>
 
 lua require'colorizer'.setup()
+
+let g:dap_virtual_text = v:true
+
+autocmd TermOpen * setlocal nonumber norelativenumber
+
+" Make adjusing split sizes a bit more friendly
+noremap <silent> <C-Left> :vertical resize +3<CR>
+noremap <silent> <C-Right> :vertical resize -3<CR>
+noremap <silent> <C-Up> :resize +3<CR>
+noremap <silent> <C-Down> :resize -3<CR>
