@@ -13,14 +13,12 @@ set splitbelow splitright
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=99
-set ignorecase
 set clipboard+=unnamedplus
 set noswapfile
 set noshowmode
 set termguicolors
-set shiftwidth=2
+set shiftwidth=2 softtabstop=2
 set tabstop=2
-set softtabstop=2
 set expandtab
 set smartindent
 
@@ -38,8 +36,11 @@ Plug 'tpope/vim-repeat'
 Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-unimpaired'
 Plug 'olimorris/onedark.nvim'
-Plug 'rktjmp/lush.nvim'
 Plug 'tpope/vim-obsession'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'metakirby5/codi.vim'
+Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'karb94/neoscroll.nvim'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -61,7 +62,7 @@ Plug 'ray-x/lsp_signature.nvim'
 
 call plug#end()
 
-colorscheme onedark_nvim
+colorscheme onedark
 
 " Change directory to the current file
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -80,3 +81,25 @@ noremap <silent> <C-Left> :vertical resize +3<CR>
 noremap <silent> <C-Right> :vertical resize -3<CR>
 noremap <silent> <C-Up> :resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
+
+nnoremap <Leader>q :bdelete<CR>
+command! BufOnly execute '%bdelete|edit #|normal `"'
+
+" DiffOrig
+command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
+		\ | diffthis | wincmd p | diffthis
+
+" Navigate wrapped lines
+noremap j gj
+noremap k gk
+
+" Window navigation
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+
+lua require('neoscroll').setup()

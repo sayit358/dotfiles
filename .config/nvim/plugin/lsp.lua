@@ -49,7 +49,11 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 local servers = { "tsserver" , "cssls", "html", "ccls", "omnisharp"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
-  require "lsp_signature".setup()
+  require "lsp_signature".setup({
+    floating_window = true,
+    floating_window_above_cur_line = true,
+    hint_enable = false,
+  })
   capabilities = capabilities
 end
 
@@ -78,25 +82,25 @@ local omnisharp_bin = "/usr/bin/omnisharp"
 -- on Windows
 -- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
 require'lspconfig'.omnisharp.setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
-    ...
+  cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+  ...
 }
 
 
 vim.lsp.handlers["textDocument/hover"] =
-  vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = "single"
-  }
+vim.lsp.with(
+vim.lsp.handlers.hover,
+{
+  border = "single"
+}
 )
 
 vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {
-    border = "single"
-  }
+vim.lsp.with(
+vim.lsp.handlers.signature_help,
+{
+  border = "single"
+}
 )
 
 require'lspconfig'.cssls.setup {
