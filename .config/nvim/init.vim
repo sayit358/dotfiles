@@ -33,14 +33,15 @@ Plug 'ggandor/lightspeed.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-repeat'
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 Plug 'tpope/vim-unimpaired'
 Plug 'olimorris/onedark.nvim'
 Plug 'tpope/vim-obsession'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'metakirby5/codi.vim'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'karb94/neoscroll.nvim'
+Plug 'sayit358/neomux'
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -82,7 +83,7 @@ noremap <silent> <C-Right> :vertical resize -3<CR>
 noremap <silent> <C-Up> :resize +3<CR>
 noremap <silent> <C-Down> :resize -3<CR>
 
-nnoremap <Leader>q :bdelete<CR>
+nnoremap <Leader>q :Sayonara<CR>
 command! BufOnly execute '%bdelete|edit #|normal `"'
 
 " DiffOrig
@@ -103,3 +104,5 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 
 lua require('neoscroll').setup()
+
+au TextYankPost * silent! lua vim.highlight.on_yank{on_visual=false, higroup="IncSearch", timeout=500}
