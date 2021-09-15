@@ -42,6 +42,8 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'sayit358/neomux'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+Plug 'sindrets/winshift.nvim'
+Plug 'justinmk/vim-dirvish'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -68,22 +70,15 @@ colorscheme onedark
 " Change directory to the current file
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
-"Remove whitespace
+" Remove whitespace
 nnoremap <Leader>ws :%s/\s\+$//e<CR>
 
 lua require'colorizer'.setup()
 
 let g:dap_virtual_text = v:true
 
-autocmd TermOpen * setlocal nonumber norelativenumber
-
-" Make adjusing split sizes a bit more friendly
-noremap <silent> <C-Left> :vertical resize +3<CR>
-noremap <silent> <C-Right> :vertical resize -3<CR>
-noremap <silent> <C-Up> :resize +3<CR>
-noremap <silent> <C-Down> :resize -3<CR>
-
-nnoremap <Leader>q :Sayonara<CR>
+nnoremap <silent> <Leader>q :Sayonara<CR>
+nnoremap <silent> <Leader>Q :Sayonara!<CR>
 command! BufOnly execute '%bdelete|edit #|normal `"'
 
 " DiffOrig
@@ -91,8 +86,8 @@ command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
 		\ | diffthis | wincmd p | diffthis
 
 " Navigate wrapped lines
-noremap j gj
-noremap k gk
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 
 " Window navigation
 noremap <C-h> <C-w>h
@@ -100,9 +95,23 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-
 lua require('neoscroll').setup()
 
 au TextYankPost * silent! lua vim.highlight.on_yank{on_visual=false, higroup="IncSearch", timeout=500}
+
+" WinShift
+lua require("winshift").setup({})
+
+nnoremap <C-M-H> <Cmd>WinShift left<CR>
+nnoremap <C-M-J> <Cmd>WinShift down<CR>
+nnoremap <C-M-K> <Cmd>WinShift up<CR>
+nnoremap <C-M-L> <Cmd>WinShift right<CR>
+
+" Dirvish
+let g:loaded_netrwPlugin = 1
+    command! -nargs=? -complete=dir Explore Dirvish <args>
+    command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
+    command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
+
+nmap <Leader>e :Dirvish<CR>
+let g:dirvish_mode = ':sort | sort ,^.*[^/]$, r'

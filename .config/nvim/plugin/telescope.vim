@@ -1,7 +1,6 @@
 " Find files with Telescope
 nmap <Leader>ff :Telescope find_files<CR>
 nnoremap <Leader>fg :Telescope live_grep<CR>
-nmap <Leader>e :Telescope file_browser<CR>
 nnoremap <Leader>bf :Telescope buffers<CR>
 
 lua << EOF
