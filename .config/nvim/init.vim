@@ -38,12 +38,12 @@ Plug 'tpope/vim-unimpaired'
 Plug 'olimorris/onedark.nvim'
 Plug 'tpope/vim-obsession'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'sayit358/neomux'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'sindrets/winshift.nvim'
 Plug 'justinmk/vim-dirvish'
+Plug 'roginfarrer/vim-dirvish-dovish', {'branch': 'main'}
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -53,7 +53,6 @@ Plug 'nvim-telescope/telescope.nvim'
 " nvim-dap
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
-Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'theHamsta/nvim-dap-virtual-text'
 
 " Lsp stuff
@@ -78,7 +77,8 @@ lua require'colorizer'.setup()
 let g:dap_virtual_text = v:true
 
 nnoremap <silent> <Leader>q :Sayonara<CR>
-nnoremap <silent> <Leader>Q :Sayonara!<CR>
+nnoremap <silent> <Leader>Q :SayoDirvi<CR>
+command! SayoDirvi execute 'Sayonara! | Dirvish'
 command! BufOnly execute '%bdelete|edit #|normal `"'
 
 " DiffOrig
@@ -100,7 +100,7 @@ lua require('neoscroll').setup()
 au TextYankPost * silent! lua vim.highlight.on_yank{on_visual=false, higroup="IncSearch", timeout=500}
 
 " WinShift
-lua require("winshift").setup({})
+lua require("winshift").setup()
 
 nnoremap <C-M-H> <Cmd>WinShift left<CR>
 nnoremap <C-M-J> <Cmd>WinShift down<CR>
@@ -115,3 +115,8 @@ let g:loaded_netrwPlugin = 1
 
 nmap <Leader>e :Dirvish<CR>
 let g:dirvish_mode = ':sort | sort ,^.*[^/]$, r'
+
+nnoremap <silent> <Leader>v :vsplit +Dirvish<CR>
+nnoremap <silent> <Leader>s :split +Dirvish<CR>
+
+call matchadd('Error', '[^\d0-\d127]')

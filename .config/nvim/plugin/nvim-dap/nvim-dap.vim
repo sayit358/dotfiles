@@ -8,4 +8,4 @@ nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.i
 nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
 nnoremap <silent> <leader>dl :lua require'dap'.run_last()<CR>
 nnoremap <silent> <Leader>ur :lua require'dap'.set_exception_breakpoints({"uncaught"})<CR>
-nnoremap <silent> <Leader>vs :lua require'dap'.disconnect()<CR>
+nnoremap <silent> <Leader>dc :lua require'dap'.disconnect()<CR>

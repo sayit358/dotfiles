@@ -23,10 +23,9 @@ require("telescope").setup {
    }
   }
  }
-require('telescope').load_extension('dap')
 EOF
 
-nnoremap <Leader>df :call <SID>dotfiles()<CR>
+nnoremap <silent> <Leader>df :call <SID>dotfiles()<CR>
 function! s:dotfiles()
   lua require("telescope.builtin").find_files({prompt_title = "Dotfiles", cwd = "~/.config/nvim",})
 endfunction
