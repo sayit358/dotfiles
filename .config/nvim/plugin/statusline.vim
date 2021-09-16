@@ -35,6 +35,7 @@ set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
 set statusline+=\ (%{&ff})                               " FileFormat (dos/unix..)
 set statusline+=%3*│                                     " Separator
 set statusline+=%2*\ %Y\                                 " FileType
+set statusline+=%{fugitive#statusline()}
 set statusline+=%=                                       " Right Side
 set statusline+=%2*\ col:\ %02v\                         " Colomn number
 set statusline+=%3*│                                     " Separator

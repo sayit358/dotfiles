@@ -75,6 +75,7 @@ nnoremap <Leader>ws :%s/\s\+$//e<CR>
 lua require'colorizer'.setup()
 
 let g:dap_virtual_text = v:true
+let g:sayonara_confirm_quit = 1
 
 nnoremap <silent> <Leader>q :Sayonara<CR>
 nnoremap <silent> <Leader>Q :SayoDirvi<CR>
@@ -113,7 +114,7 @@ let g:loaded_netrwPlugin = 1
     command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
     command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
 
-nmap <Leader>e :Dirvish<CR>
+nmap <silent> <Leader>e :Dirvish<CR>
 let g:dirvish_mode = ':sort | sort ,^.*[^/]$, r'
 
 nnoremap <silent> <Leader>v :vsplit +Dirvish<CR>
