@@ -72,6 +72,8 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 " Remove whitespace
 nnoremap <Leader>ws :%s/\s\+$//e<CR>
 
+nnoremap <silent> <Backspace> :noh<CR>
+
 lua require'colorizer'.setup()
 
 let g:dap_virtual_text = v:true
