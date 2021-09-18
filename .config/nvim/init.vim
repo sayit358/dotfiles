@@ -38,7 +38,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'olimorris/onedark.nvim'
 Plug 'tpope/vim-obsession'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'karb94/neoscroll.nvim'
 Plug 'sayit358/neomux'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'sindrets/winshift.nvim'
@@ -97,8 +96,6 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-
-lua require('neoscroll').setup()
 
 au TextYankPost * silent! lua vim.highlight.on_yank{on_visual=false, higroup="IncSearch", timeout=500}
 
