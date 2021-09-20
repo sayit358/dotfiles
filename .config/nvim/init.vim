@@ -33,7 +33,7 @@ Plug 'ggandor/lightspeed.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-repeat'
-Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+Plug 'vimwiki/vimwiki', {'branch': 'dev', 'on': 'VimwikiIndex'}
 Plug 'tpope/vim-unimpaired'
 Plug 'olimorris/onedark.nvim'
 Plug 'tpope/vim-obsession'
@@ -43,6 +43,13 @@ Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'sindrets/winshift.nvim'
 Plug 'justinmk/vim-dirvish'
 Plug 'roginfarrer/vim-dirvish-dovish', {'branch': 'main'}
+Plug 'google/vim-searchindex'
+Plug 'junegunn/vim-easy-align', { 'on':  'EasyAlign' }
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+Plug 'Konfekt/vim-CtrlXA'
+Plug 'tpope/vim-speeddating'
+Plug 'romainl/vim-qf'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -60,6 +67,7 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'ray-x/lsp_signature.nvim'
+Plug 'simrat39/symbols-outline.nvim'
 
 call plug#end()
 
@@ -74,6 +82,9 @@ nnoremap <Leader>ws :%s/\s\+$//e<CR>
 nnoremap <silent> <Backspace> :noh<CR>
 
 lua require'colorizer'.setup()
+
+" Dot command
+vnoremap <silent> . :norm .<CR>
 
 let g:dap_virtual_text = v:true
 let g:sayonara_confirm_quit = 1
@@ -120,3 +131,13 @@ nnoremap <silent> <Leader>v :vsplit +Dirvish<CR>
 nnoremap <silent> <Leader>s :split +Dirvish<CR>
 
 call matchadd('Error', '[^\d0-\d127]')
+
+command! School execute 'hi Normal guibg=NONE | VimwikiIndex'
+
+" Shift lines up and down
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv

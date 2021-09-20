@@ -6,6 +6,8 @@ augroup formatting
   autocmd FileType html setlocal formatprg=prettier\ --parser\ html
   autocmd FileType json setlocal formatprg=prettier\ --parser\ json
   autocmd FileType javascript setlocal formatprg=prettier\ --parser\ typescript
+  autocmd FileType typescriptreact setlocal formatprg=prettier\ --parser\ typescript
+  autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 augroup END
 
 " format entire buffer and keep cursor position with mark
