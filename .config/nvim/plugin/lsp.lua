@@ -36,20 +36,22 @@ local on_attach = function(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.documentationFormat = { 'markdown', 'plaintext' }
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+capabilities.textDocument.completion.completionItem.resolveSupport = { properties = { 'documentation', 'detail', 'additionalTextEdits', } }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { "tsserver" , "cssls", "html", "ccls", "omnisharp"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
+  require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   require "lsp_signature".setup({
     floating_window = true,
     floating_window_above_cur_line = true,
@@ -58,25 +60,6 @@ for _, lsp in ipairs(servers) do
   capabilities = capabilities
 end
 
-
-
-local lspconfig = require'lspconfig'
-local configs = require'lspconfig/configs'
-
-if not lspconfig.emmet_ls then
-  configs.emmet_ls = {
-    default_config = {
-      cmd = {'emmet-ls', '--stdio'};
-      filetypes = {'html', 'css'};
-      root_dir = function(fname)
-        return vim.loop.cwd()
-      end;
-      settings = {};
-    };
-  }
-end
-lspconfig.emmet_ls.setup{ capabilities = capabilities; }
-
 local pid = vim.fn.getpid()
 -- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
 local omnisharp_bin = "/usr/bin/omnisharp"
@@ -84,9 +67,14 @@ local omnisharp_bin = "/usr/bin/omnisharp"
 -- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
 require'lspconfig'.omnisharp.setup{
   cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
-  ...
-}
 
+  require "lsp_signature".setup({
+    floating_window = true,
+    floating_window_above_cur_line = true,
+    hint_enable = false,
+  })
+
+}
 
 vim.lsp.handlers["textDocument/hover"] =
 vim.lsp.with(
@@ -104,27 +92,27 @@ vim.lsp.handlers.signature_help,
 }
 )
 
+require'lspconfig'.html.setup {
+  capabilities = capabilities,
+  require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+}
+
+require'lspconfig/configs'.ls_emmet = {
+  default_config = {
+    cmd = { 'ls_emmet', '--stdio' };
+    filetypes = { 'html', 'css', 'scss' }; -- Add the languages you use, see language support
+    root_dir = function(fname)
+      return vim.loop.cwd()
+    end;
+    settings = {};
+  };
+}
+
+require'lspconfig'.ls_emmet.setup{ 
+  require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = capabilities, 
+}
+
 require'lspconfig'.cssls.setup {
   capabilities = capabilities,
 }
-
-
-require'lspconfig'.html.setup {
-  capabilities = capabilities,
-}
-
-if not lspconfig.arduino then
-  configs.arduino = {
-    default_config = {
-      cmd = {'arduino-language-server', '-cli-config', '~/.arduinoIDE/arduino-cli.yaml'};
-      filetypes = {'arduino'};
-      root_dir = function(fname)
-        return vim.loop.cwd()
-      end;
-      settings = {};
-    };
-  }
-end
-lspconfig.arduino.setup{ capabilities = capabilities; }
-require'lspconfig'.pylsp.setup{}
-

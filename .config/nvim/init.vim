@@ -38,18 +38,16 @@ Plug 'tpope/vim-unimpaired'
 Plug 'olimorris/onedark.nvim'
 Plug 'tpope/vim-obsession'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'sayit358/neomux'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'sindrets/winshift.nvim'
 Plug 'justinmk/vim-dirvish'
 Plug 'roginfarrer/vim-dirvish-dovish', {'branch': 'main'}
-Plug 'google/vim-searchindex'
 Plug 'junegunn/vim-easy-align', { 'on':  'EasyAlign' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'Konfekt/vim-CtrlXA'
-Plug 'tpope/vim-speeddating'
 Plug 'romainl/vim-qf'
+Plug 'ThePrimeagen/harpoon'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -63,11 +61,15 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 
 " Lsp stuff
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'simrat39/symbols-outline.nvim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'f3fora/cmp-spell'
+Plug 'hrsh7th/cmp-path'
 
 call plug#end()
 
@@ -96,7 +98,7 @@ command! BufOnly execute '%bdelete|edit #|normal `"'
 
 " DiffOrig
 command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
-		\ | diffthis | wincmd p | diffthis
+      \ | diffthis | wincmd p | diffthis
 
 " Navigate wrapped lines
 nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
@@ -110,34 +112,30 @@ noremap <C-l> <C-w>l
 
 au TextYankPost * silent! lua vim.highlight.on_yank{on_visual=false, higroup="IncSearch", timeout=500}
 
-" WinShift
-lua require("winshift").setup()
-
-nnoremap <C-M-H> <Cmd>WinShift left<CR>
-nnoremap <C-M-J> <Cmd>WinShift down<CR>
-nnoremap <C-M-K> <Cmd>WinShift up<CR>
-nnoremap <C-M-L> <Cmd>WinShift right<CR>
-
-" Dirvish
-let g:loaded_netrwPlugin = 1
-    command! -nargs=? -complete=dir Explore Dirvish <args>
-    command! -nargs=? -complete=dir Sexplore belowright split | silent Dirvish <args>
-    command! -nargs=? -complete=dir Vexplore leftabove vsplit | silent Dirvish <args>
-
-nmap <silent> <Leader>e :Dirvish<CR>
-let g:dirvish_mode = ':sort | sort ,^.*[^/]$, r'
-
-nnoremap <silent> <Leader>v :vsplit +Dirvish<CR>
-nnoremap <silent> <Leader>s :split +Dirvish<CR>
-
 call matchadd('Error', '[^\d0-\d127]')
 
 command! School execute 'hi Normal guibg=NONE | VimwikiIndex'
 
-" Shift lines up and down
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+lua << EOF
+local onedark = require('onedark')
+onedark.setup({
+styles = {
+  comments = "italic",
+  functions = "NONE",
+  keywords = "bold,italic",
+  strings = "NONE",
+  variables = "NONE"
+  }
+})
+onedark.load()
+EOF
+
+nnoremap <silent> <Leader>fs :lua require("harpoon.ui").toggle_quick_menu()<CR>
+
+nnoremap H ^
+nnoremap L $
+
+map ; <Plug>Lightspeed_;_sx
+map , <Plug>Lightspeed_,_sx
+map ; <Plug>Lightspeed_;_ft
+map , <Plug>Lightspeed_,_ft
