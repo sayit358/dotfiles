@@ -6,7 +6,6 @@
 
 set number relativenumber
 set mouse=a
-set hidden
 set lazyredraw
 set confirm
 set splitbelow splitright
@@ -21,10 +20,11 @@ set shiftwidth=2 softtabstop=2
 set tabstop=2
 set expandtab
 set smartindent
+set hidden
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -33,9 +33,9 @@ Plug 'ggandor/lightspeed.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-repeat'
-Plug 'vimwiki/vimwiki', {'branch': 'dev', 'on': 'VimwikiIndex'}
+Plug 'olimorris/onedarkpro.nvim'
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 Plug 'tpope/vim-unimpaired'
-Plug 'olimorris/onedark.nvim'
 Plug 'tpope/vim-obsession'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
@@ -48,6 +48,8 @@ Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'Konfekt/vim-CtrlXA'
 Plug 'romainl/vim-qf'
 Plug 'ThePrimeagen/harpoon'
+Plug 'dstein64/nvim-scrollview'
+Plug 'stsewd/gx-extended.vim'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -73,7 +75,7 @@ Plug 'hrsh7th/cmp-path'
 
 call plug#end()
 
-colorscheme onedark
+colorscheme onedarkpro
 
 " Change directory to the current file
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -81,7 +83,7 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 " Remove whitespace
 nnoremap <Leader>ws :%s/\s\+$//e<CR>
 
-nnoremap <silent> <Backspace> :noh<CR>
+nnoremap <silent> nh :noh<CR>
 
 lua require'colorizer'.setup()
 
@@ -91,10 +93,9 @@ vnoremap <silent> . :norm .<CR>
 let g:dap_virtual_text = v:true
 let g:sayonara_confirm_quit = 1
 
-nnoremap <silent> <Leader>q :Sayonara<CR>
-nnoremap <silent> <Leader>Q :SayoDirvi<CR>
-command! SayoDirvi execute 'Sayonara! | Dirvish'
-command! BufOnly execute '%bdelete|edit #|normal `"'
+nnoremap <silent> <Space>q :Sayonara<CR>
+nnoremap <silent> <Space>Q :Sayonara!<CR>
+command! BufOnly silent! execute '%bdelete|edit #|normal `"'
 
 " DiffOrig
 command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
@@ -112,30 +113,20 @@ noremap <C-l> <C-w>l
 
 au TextYankPost * silent! lua vim.highlight.on_yank{on_visual=false, higroup="IncSearch", timeout=500}
 
-call matchadd('Error', '[^\d0-\d127]')
+autocmd FileType markdown call matchadd('Error', '[^\d0-\d127]')
 
 command! School execute 'hi Normal guibg=NONE | VimwikiIndex'
-
-lua << EOF
-local onedark = require('onedark')
-onedark.setup({
-styles = {
-  comments = "italic",
-  functions = "NONE",
-  keywords = "bold,italic",
-  strings = "NONE",
-  variables = "NONE"
-  }
-})
-onedark.load()
-EOF
-
-nnoremap <silent> <Leader>fs :lua require("harpoon.ui").toggle_quick_menu()<CR>
-
-nnoremap H ^
-nnoremap L $
 
 map ; <Plug>Lightspeed_;_sx
 map , <Plug>Lightspeed_,_sx
 map ; <Plug>Lightspeed_;_ft
 map , <Plug>Lightspeed_,_ft
+
+autocmd TermOpen * setlocal nonumber norelativenumber
+
+let g:indent_blankline_buftype_exclude = ['terminal']
+
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
+
+tnoremap <leader><Esc> <C-\><C-n>

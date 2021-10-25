@@ -18,7 +18,6 @@ require("telescope").setup {
     },
    find_files = {
      theme = "dropdown",
-     previewer = false,
      hidden = true
    }
   }
