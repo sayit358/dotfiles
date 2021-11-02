@@ -30,15 +30,14 @@ Plug 'tpope/vim-surround'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'ggandor/lightspeed.nvim'
-Plug 'norcalli/nvim-colorizer.lua'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-repeat'
-Plug 'olimorris/onedarkpro.nvim'
+Plug 'sayit358/onedarkpro.nvim'
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
 Plug 'sindrets/winshift.nvim'
 Plug 'justinmk/vim-dirvish'
 Plug 'roginfarrer/vim-dirvish-dovish', {'branch': 'main'}
@@ -50,6 +49,8 @@ Plug 'romainl/vim-qf'
 Plug 'ThePrimeagen/harpoon'
 Plug 'dstein64/nvim-scrollview'
 Plug 'stsewd/gx-extended.vim'
+Plug 'rcarriga/nvim-notify'
+Plug 'nvim-lualine/lualine.nvim'
 
 " Telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -78,24 +79,17 @@ call plug#end()
 colorscheme onedarkpro
 
 " Change directory to the current file
-nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <Space>cd :cd %:p:h<CR>:pwd<CR>
 
 " Remove whitespace
-nnoremap <Leader>ws :%s/\s\+$//e<CR>
+nnoremap <Space>wht :%s/\s\+$//e<CR>
 
 nnoremap <silent> nh :noh<CR>
-
-lua require'colorizer'.setup()
 
 " Dot command
 vnoremap <silent> . :norm .<CR>
 
-let g:dap_virtual_text = v:true
-let g:sayonara_confirm_quit = 1
-
-nnoremap <silent> <Space>q :Sayonara<CR>
-nnoremap <silent> <Space>Q :Sayonara!<CR>
-command! BufOnly silent! execute '%bdelete|edit #|normal `"'
+lua require'nvim-dap-virtual-text'.setup()
 
 " DiffOrig
 command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
@@ -117,16 +111,15 @@ autocmd FileType markdown call matchadd('Error', '[^\d0-\d127]')
 
 command! School execute 'hi Normal guibg=NONE | VimwikiIndex'
 
-map ; <Plug>Lightspeed_;_sx
-map , <Plug>Lightspeed_,_sx
 map ; <Plug>Lightspeed_;_ft
 map , <Plug>Lightspeed_,_ft
-
-autocmd TermOpen * setlocal nonumber norelativenumber
-
-let g:indent_blankline_buftype_exclude = ['terminal']
 
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
-tnoremap <leader><Esc> <C-\><C-n>
+" Close buffer (without closing window)
+nnoremap <silent> <expr><Space>q len(getbufinfo("")[0].windows) > 1 ?
+    \ ":close<CR>" :
+    \ (bufnr("") == getbufinfo({"buflisted": 1})[-1].bufnr ? ":bp" : ":bn")."<bar>bd #<CR>"
+
+nnoremap <Space>bf :Telescope buffers<CR>
