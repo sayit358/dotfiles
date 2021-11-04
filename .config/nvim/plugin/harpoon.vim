@@ -12,3 +12,4 @@ nnoremap <silent> <leader>;k :lua require("harpoon.term").sendCommand(2, 2)<CR>:
 nnoremap <silent> <leader>;l :lua require("harpoon.term").sendCommand(2, 3)<CR>:lua require("harpoon.term").gotoTerminal(2)<CR>a<CR><C-\><C-n>
 nnoremap <silent> <leader>;; :lua require("harpoon.term").sendCommand(2, 4)<CR>:lua require("harpoon.term").gotoTerminal(2)<CR>a<CR><C-\><C-n>
 nnoremap <silent> <Leader>p :lua require("harpoon.cmd-ui").toggle_quick_menu()<CR>
+nnoremap <silent> <Leader>ma :lua require("harpoon.mark").add_file()<CR>
