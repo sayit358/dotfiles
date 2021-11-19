@@ -11,4 +11,4 @@ augroup formatting
 augroup END
 
 " format entire buffer and keep cursor position with mark
-nnoremap <silent><leader>fpr mxgggqG'x<CR>
+nnoremap <silent><leader>fpr mxgggqG'xk<CR>

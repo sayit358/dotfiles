@@ -21,6 +21,7 @@ set tabstop=2
 set expandtab
 set smartindent
 set hidden
+set timeoutlen=500
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -33,7 +34,7 @@ Plug 'ggandor/lightspeed.nvim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-repeat'
-Plug 'sayit358/onedarkpro.nvim'
+Plug 'olimorris/onedarkpro.nvim'
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
@@ -75,8 +76,6 @@ Plug 'f3fora/cmp-spell'
 Plug 'hrsh7th/cmp-path'
 
 call plug#end()
-
-colorscheme onedarkpro
 
 " Change directory to the current file
 nnoremap <Space>cd :cd %:p:h<CR>:pwd<CR>
@@ -121,5 +120,3 @@ let mapleader = "\<Space>"
 nnoremap <silent> <expr><Space>q len(getbufinfo("")[0].windows) > 1 ?
     \ ":close<CR>" :
     \ (bufnr("") == getbufinfo({"buflisted": 1})[-1].bufnr ? ":bp" : ":bn")."<bar>bd #<CR>"
-
-nnoremap <Space>bf :Telescope buffers<CR>
