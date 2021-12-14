@@ -14,5 +14,21 @@ dap.configurations.javascript = {
     sourceMaps = true,
     protocol = 'inspector',
     console = 'integratedTerminal',
-  },
+  }
 }
+dap.adapters.netcoredbg = {
+  type = 'executable',
+  command = '/bin/netcoredbg',
+  args = {'--interpreter=vscode'}
+}
+dap.configurations.cs = {
+  {
+    type = "netcoredbg",
+    name = "launch - netcoredbg",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+    end,
+  }
+}
+require'nvim-dap-virtual-text'.setup()
