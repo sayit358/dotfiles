@@ -21,7 +21,6 @@ set tabstop=2
 set expandtab
 set smartindent
 set hidden
-set timeoutlen=500
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -32,7 +31,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'tpope/vim-fugitive'
 Plug 'ggandor/lightspeed.nvim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-repeat'
 Plug 'olimorris/onedarkpro.nvim'
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}
@@ -46,17 +44,15 @@ Plug 'junegunn/vim-easy-align', { 'on':  'EasyAlign' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'Konfekt/vim-CtrlXA'
-Plug 'romainl/vim-qf'
+Plug 'kevinhwang91/nvim-bqf'
 Plug 'ThePrimeagen/harpoon'
 Plug 'dstein64/nvim-scrollview'
 Plug 'stsewd/gx-extended.vim'
 Plug 'rcarriga/nvim-notify'
 Plug 'nvim-lualine/lualine.nvim'
-
-" Telescope
+Plug 'ibhagwan/fzf-lua'
+Plug 'vijaymarupudi/nvim-fzf'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 
 " nvim-dap
 Plug 'mfussenegger/nvim-dap'
@@ -77,18 +73,12 @@ Plug 'hrsh7th/cmp-path'
 
 call plug#end()
 
-" Change directory to the current file
-nnoremap <Space>cd :cd %:p:h<CR>:pwd<CR>
-
-" Remove whitespace
-nnoremap <Space>wht :%s/\s\+$//e<CR>
+autocmd BufWritePre * %s/\s\+$//e
 
 nnoremap <silent> nh :noh<CR>
 
 " Dot command
 vnoremap <silent> . :norm .<CR>
-
-lua require'nvim-dap-virtual-text'.setup()
 
 " DiffOrig
 command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
@@ -106,17 +96,8 @@ noremap <C-l> <C-w>l
 
 au TextYankPost * silent! lua vim.highlight.on_yank{on_visual=false, higroup="IncSearch", timeout=500}
 
-autocmd FileType markdown call matchadd('Error', '[^\d0-\d127]')
-
-command! School execute 'hi Normal guibg=NONE | VimwikiIndex'
-
-map ; <Plug>Lightspeed_;_ft
-map , <Plug>Lightspeed_,_ft
-
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
-" Close buffer (without closing window)
-nnoremap <silent> <expr><Space>q len(getbufinfo("")[0].windows) > 1 ?
-    \ ":close<CR>" :
-    \ (bufnr("") == getbufinfo({"buflisted": 1})[-1].bufnr ? ":bp" : ":bn")."<bar>bd #<CR>"
+nnoremap <silent> <Space>q :q<CR>
+nnoremap <silent> <Space>Q :bdelete<CR>
